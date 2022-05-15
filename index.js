@@ -16,7 +16,21 @@ async function run() {
       await client.connect();
       const bikesCollection = client.db('bikewarehouse').collection('bikes');
 
+      app.get('/bikes', async (req, res) => {
+         const query = {};
+         const cursor = bikesCollection.find(query);
+         const bikes = await cursor.toArray();
+         res.send(bikes);
+      });
 
+
+      app.get('/bikeDetails/:id', async (req, res) => {
+         const id = req.params.id;
+         const query = { _id: ObjectId(id) };
+         const bikes = await bikesCollection.findOne(query);
+         res.send(bikes);
+
+      })
 
    }
    finally {
