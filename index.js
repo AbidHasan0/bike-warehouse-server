@@ -16,6 +16,8 @@ async function run() {
       await client.connect();
       const bikesCollection = client.db('bikewarehouse').collection('bikes');
 
+
+      // All Bikes
       app.get('/bikes', async (req, res) => {
          const query = {};
          const cursor = bikesCollection.find(query);
