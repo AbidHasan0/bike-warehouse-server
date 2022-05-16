@@ -25,13 +25,22 @@ async function run() {
          res.send(bikes);
       });
 
-
+      //  Dynamic Route
       app.get('/bikeDetails/:id', async (req, res) => {
          const id = req.params.id;
          const query = { _id: ObjectId(id) };
          const bikes = await bikesCollection.findOne(query);
          res.send(bikes);
 
+      });
+
+
+      // ADD Bikes
+      app.post('/bikes', async (req, res) => {
+         const newProduct = req.body;
+         console.log(newProduct);
+         const result = await bikesCollection.insertOne(newProduct);
+         res.send(result);
       })
 
    }
