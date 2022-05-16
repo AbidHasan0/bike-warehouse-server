@@ -52,6 +52,23 @@ async function run() {
       })
 
 
+      // Update Bikes
+      app.put('/bikeDetails/:id', async (req, res) => {
+         const id = req.params.id;
+         const quantity = req.body;
+         console.log(quantity);
+         const filter = { _id: ObjectId(id) }
+         const options = { upsert: true };
+         const updatedDoc = {
+            $set: {
+               quantity: quantity.quantity
+            }
+         }
+         const result = await bikesCollection.updateOne(filter, updatedDoc, options)
+         res.send(result)
+      })
+
+
    }
    finally {
 
